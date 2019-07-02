@@ -22,4 +22,4 @@ ENV mqenabled='N'
 ENV mqserver='127.0.0.1'
 ENV mqq='hello'
 
-CMD python3 -u ./camera-movement.py -i ${input_url} -o ${output_url} -n ${camera_name} -t ${threshold} -r ${mqenabled} -s ${mqserver} -q ${mqq}
+CMD python3 -u ./cato-vision/camera-movement.py -i ${input_url} -o ${output_url} -n ${camera_name} -t ${threshold} -r ${mqenabled} -s ${mqserver} -q ${mqq}
