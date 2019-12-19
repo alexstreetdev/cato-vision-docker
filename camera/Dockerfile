@@ -1,4 +1,4 @@
-FROM balenalib/raspberry-pi-debian:latest
+FROM alexstreet/opencv-base:3.4.4
 
 RUN sudo apt-get update && apt-get install -y \
     git \
@@ -11,12 +11,16 @@ RUN sudo apt-get update && apt-get install -y \
 
 RUN git clone https://github.com/jacksonliam/mjpg-streamer.git
 
+RUN sudo ln -s /usr/include/linux/videodev2.h /usr/include/linux/videodev.h
+
 WORKDIR /mjpg-streamer/mjpg-streamer-experimental
 
 RUN make
 RUN sudo make install
-#    && chmod +x docker-start.sh
+RUN sudo chmod +x docker-start.sh
 
 RUN export LD_LIBRARY_PATH=.
 
-CMD ./mjpg_streamer -i "input_raspicam.so" -o "output_http.so -w ./www"
+EXPOSE 8080
+
+CMD sudo ./mjpg_streamer -o "output_http.so -w ./www" -i "input_raspicam.so"
