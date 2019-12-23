@@ -1,4 +1,8 @@
-FROM alexstreet/opencv-base:3.4.4
+FROM balenalib/rpi-raspbian:jessie
+
+ENV fps=5
+ENV x=640
+ENV y=480
 
 RUN sudo apt-get update && apt-get install -y \
     git \
@@ -23,4 +27,8 @@ RUN export LD_LIBRARY_PATH=.
 
 EXPOSE 8080
 
-CMD sudo ./mjpg_streamer -o "output_http.so -w ./www" -i "input_raspicam.so"
+CMD sudo ./mjpg_streamer -o "output_http.so -w ./www" \
+-i "input_raspicam.so \
+-fps ${fps} \
+-x ${x} \
+-y ${y}"
