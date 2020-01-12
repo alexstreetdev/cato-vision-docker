@@ -3,6 +3,7 @@ FROM balenalib/rpi-raspbian:jessie
 ENV fps=5
 ENV x=640
 ENV y=480
+ENV flags=""
 
 RUN sudo apt-get update && apt-get install -y \
     git \
@@ -31,4 +32,5 @@ CMD sudo ./mjpg_streamer -o "output_http.so -w ./www" \
 -i "input_raspicam.so \
 -fps ${fps} \
 -x ${x} \
--y ${y}"
+-y ${y} \
+${flags}"
